@@ -1,0 +1,256 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Incendios",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/fires": {
+            "get": {
+                "summary": "Obtener todos los incendios",
+                "description": "Retorna una lista de todos los incendios registrados.",
+                "operationId": "255235b45a3faed4a5843fc62aa5f695",
+                "responses": {
+                    "200": {
+                        "description": "Lista de incendios",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Fire"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Registrar un nuevo incendio",
+                "description": "Crea un nuevo registro de incendio.",
+                "operationId": "bf8a18fc648b89cfb07a6cea35563d1c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "city_id",
+                                    "cause",
+                                    "area",
+                                    "quantity",
+                                    "risk"
+                                ],
+                                "properties": {
+                                    "city_id": {
+                                        "description": "ID de la ciudad",
+                                        "type": "integer"
+                                    },
+                                    "cause": {
+                                        "description": "Causa del incendio",
+                                        "type": "string"
+                                    },
+                                    "area": {
+                                        "description": "Área afectada en hectáreas",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "quantity": {
+                                        "description": "Cantidad de incendios",
+                                        "type": "integer"
+                                    },
+                                    "risk": {
+                                        "description": "Nivel de riesgo",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Incendio registrado exitosamente"
+                    }
+                }
+            }
+        },
+        "/api/fires/{id}": {
+            "get": {
+                "summary": "Mostrar un incendio específico",
+                "description": "Obtiene los detalles de un incendio por su ID.",
+                "operationId": "a0eb58b74313821a91a7ac8d3d022c5d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles del incendio",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Fire"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Incendio no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar un incendio",
+                "description": "Actualiza los detalles de un incendio.",
+                "operationId": "d0654984a80db2c631a7ab277ef41372",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "city_id",
+                                    "cause",
+                                    "area",
+                                    "quantity",
+                                    "risk"
+                                ],
+                                "properties": {
+                                    "city_id": {
+                                        "description": "ID de la ciudad",
+                                        "type": "integer"
+                                    },
+                                    "cause": {
+                                        "description": "Causa del incendio",
+                                        "type": "string"
+                                    },
+                                    "area": {
+                                        "description": "Área afectada en hectáreas",
+                                        "type": "number",
+                                        "format": "float"
+                                    },
+                                    "quantity": {
+                                        "description": "Cantidad de incendios",
+                                        "type": "integer"
+                                    },
+                                    "risk": {
+                                        "description": "Nivel de riesgo",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Incendio actualizado exitosamente"
+                    },
+                    "404": {
+                        "description": "Incendio no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar un incendio",
+                "description": "Elimina un incendio por su ID.",
+                "operationId": "bbca6f34b02f9495c7287069dc751779",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Incendio eliminado exitosamente"
+                    },
+                    "404": {
+                        "description": "Incendio no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/fires/query": {
+            "get": {
+                "summary": "Consultar área máxima de incendio",
+                "description": "Devuelve el área máxima de incendio registrada.",
+                "operationId": "33fb81adf07743acf75214641c1ff41b",
+                "responses": {
+                    "200": {
+                        "description": "Área máxima de incendio",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "number",
+                                    "format": "float"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Fire": {
+                "required": [
+                    "city_id",
+                    "cause",
+                    "area",
+                    "quantity",
+                    "risk"
+                ],
+                "properties": {
+                    "city_id": {
+                        "description": "ID de la ciudad",
+                        "type": "integer"
+                    },
+                    "cause": {
+                        "description": "Causa del incendio",
+                        "type": "string"
+                    },
+                    "area": {
+                        "description": "Área afectada en hectáreas",
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "quantity": {
+                        "description": "Cantidad de incendios",
+                        "type": "integer"
+                    },
+                    "risk": {
+                        "description": "Nivel de riesgo",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

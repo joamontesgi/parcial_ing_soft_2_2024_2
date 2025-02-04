@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FireController;
+use App\Http\Controllers\FlaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/fires', [FireController::class, 'index']);
+Route::post('/fires', [FireController::class, 'store']);
+Route::get('/fires/{id}', [FireController::class, 'show']);
+Route::put('/fires/{id}', [FireController::class, 'update']);
+Route::delete('/fires{id}', [FireController::class, 'destroy']);
+
+Route::post('/flask', [FlaskController::class, 'flask']);

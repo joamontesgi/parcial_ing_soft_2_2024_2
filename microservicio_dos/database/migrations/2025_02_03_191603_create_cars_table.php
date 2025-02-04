@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('cars', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('id_route');
+            $table->foreign('id_route')->references('id')->on('routes');
+            $table->unsignedBigInteger('id_type_car');
+            $table->foreign('id_type_car')->references('id')->on('type_cars');
+            $table->string('driver');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('cars');
+    }
+};
